@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>アイテム図鑑 - Happy Birthday!</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="collection-page">
+    <div class="collection-container">
+        <header class="collection-header">
+            <h1>ITEM COLLECTION</h1>
+            <p id="collection-status">0 / 18</p>
+            <div class="progress-bar-container">
+                <div id="progress-bar" class="progress-bar"></div>
+            </div>
+        </header>
+        <main id="collection-grid" class="collection-grid">
+            <!-- アイテムはここにJSで表示されます -->
+        </main>
+        <footer>
+            <a href="gacha.html" class="nav-link">ガチャに戻る</a>
+        </footer>
+    </div>
+    <script src="js/collection.js"></script>
+        <!-- アイテム拡大表示モーダル -->
+        <div id="item-modal" class="item-modal">
+            <div class="item-modal-content">
+                <span class="close-button">&times;</span>
+                <img id="modal-item-image" src="" alt="拡大アイテム" class="modal-item-image">
+                <p id="modal-item-name" class="modal-item-name"></p>
+            </div>
+        </div>
+    </body>
+</html>

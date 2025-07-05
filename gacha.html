@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ガチャ画面 - Happy Birthday!</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Card Gacha</h1>
+            <p>点線をなぞって開封！</p>
+        </header>
+        <main>
+            <div id="gacha-result" class="gacha-result-area">
+                <p>下のボタンを押してパックを引いてね！</p>
+            </div>
+            <div class="controls">
+                <button id="pull-gacha-button">パックを引く</button>
+                <p>今日の残り回数: <span id="pulls-left">3</span>回</p>
+            </div>
+            <div id="birthday-chance" style="display: none;">
+                <h2>バースデーラッキーチャンス！</h2>
+                <button id="pull-chance-button">もう3回引く！</button>
+            </div>
+        </main>
+        <footer>
+            <a href="collection.html" class="nav-link">図鑑を見る</a>
+            <a href="index.html" class="nav-link">トップに戻る</a>
+            <button id="reset-button" class="nav-link" style="background:none; border:none; cursor:pointer; color:#e91e63; font-size:1em;">進行状況をリセット</button>
+        </footer>
+    </div>
+    <script src="js/gacha.js"></script>
+</body>
+</html>

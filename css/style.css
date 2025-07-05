@@ -1,0 +1,457 @@
+/* --- 基本設定 --- */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+}
+
+/* --- トップ画面専用スタイル --- */
+body.intro-page {
+    background: linear-gradient(to bottom right, #ffdde1, #ee9ca7); /* 暖色系のグラデーション */
+}
+.intro-container {
+    background-color: rgba(255, 255, 255, 0.95); /* 半透明の白 */
+    border-radius: 25px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+    width: 100%;
+    max-width: 450px;
+    height: 100%;
+    max-height: 700px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 40px 20px;
+    text-align: center;
+    animation: fadeIn 1s ease-out;
+}
+
+.intro-header h1 {
+    color: #e91e63;
+    font-size: 2.8em;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+.intro-main {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.countdown {
+    font-size: 1.8em;
+    color: #c2185b;
+    margin-bottom: 30px;
+}
+.countdown p {
+    margin: 5px 0;
+}
+.days-left {
+    font-size: 4em;
+    font-weight: bold;
+    color: #e91e63;
+    text-shadow: 3px 3px 6px rgba(0,0,0,0.15);
+    animation: pulse 1.5s infinite alternate;
+}
+
+.intro-button {
+    background-image: linear-gradient(45deg, #ff6b6b, #ffa07a); /* 鮮やかなグラデーション */
+    color: white;
+    border: none;
+    padding: 20px 50px;
+    font-size: 1.5em;
+    font-weight: bold;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 20px rgba(255,107,107,0.4);
+}
+.intro-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px rgba(255,107,107,0.5);
+}
+
+.intro-footer p {
+    color: #666;
+    font-size: 1em;
+}
+
+/* --- ガチャページコンテナ --- */
+.container {
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+    width: 100%;
+    max-width: 420px;
+    height: 100%;
+    max-height: 850px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding: 25px;
+    text-align: center;
+}
+
+header, footer {
+    flex-shrink: 0;
+}
+
+main {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.gacha-result-area {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    perspective: 1200px;
+    width: 100%;
+}
+
+.controls {
+    padding: 15px 0;
+    width: 100%;
+}
+
+/* --- カードパック --- */
+.pack-wrapper {
+    position: relative;
+    width: 220px;
+    height: 320px;
+    cursor: grab;
+    transition: transform 0.3s ease;
+    margin: 0 auto;
+    z-index: 1; /* パックがカードの上に重ならないように */
+}
+.pack-wrapper:active {
+    cursor: grabbing;
+    transform: scale(0.98);
+}
+
+.pack-part {
+    position: absolute;
+    width: 100%;
+    background-image: linear-gradient(45deg, #ff7e5f, #feb47b);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    transition: transform 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.pack-top {
+    height: 30%;
+    top: 0;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+.pack-bottom {
+    height: 70%;
+    bottom: 0;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    align-items: flex-start;
+    padding-top: 15px;
+}
+.pack-top.opened { transform: translateY(-150%); }
+.pack-bottom.opened { transform: translateY(150%); }
+
+.tear-line {
+    width: 80%;
+    border-top: 3px dashed rgba(255, 255, 255, 0.8);
+}
+
+/* --- アイテムカード --- */
+.item-card-container {
+    position: absolute;
+    width: 200px;
+    height: 280px;
+    /* opacity: 0; */
+    /* transform: scale(0.8); */
+    /* transition: opacity 0.5s ease 0.3s, transform 0.5s ease 0.3s; */
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 10px 35px rgba(0,0,0,0.2);
+    position: relative;
+    overflow: hidden;
+    z-index: 2; /* パックよりも前面に表示 */
+}
+
+.item-card-container .item-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.new-item-text {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: white;
+    background-color: #e91e63;
+    padding: 3px 8px;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 1em;
+    animation: flash 1.5s infinite;
+}
+
+/* --- ボタン・リンク --- */
+#pull-gacha-button {
+    background-image: linear-gradient(45deg, #e91e63, #c2185b);
+    color: white;
+    border: none;
+    padding: 18px 40px;
+    font-size: 1.2em;
+    font-weight: bold;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(233, 30, 99, 0.4);
+}
+#pull-gacha-button:disabled {
+    background-image: none;
+    background-color: #ccc;
+    box-shadow: none;
+    cursor: not-allowed;
+}
+#pull-gacha-button:not(:disabled):hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(233, 30, 99, 0.5);
+}
+
+.nav-link {
+    display: inline-block;
+    margin: 0 10px;
+    color: #e91e63;
+    text-decoration: none;
+}
+
+/* --- アニメーション & 紙吹雪 --- */
+@keyframes flash {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulse {
+    from { transform: scale(1); }
+    to { transform: scale(1.05); }
+}
+
+.confetti {
+    width: 10px;
+    height: 10px;
+    background-color: #f00;
+    position: absolute;
+    top: -20px;
+    animation: fall linear infinite;
+}
+@keyframes fall {
+    to {
+        transform: translateY(100vh) rotate(360deg);
+    }
+}
+
+/* --- 図鑑ページ専用スタイル --- */
+body.collection-page {
+    background-color: #2c3e50;
+}
+.collection-container {
+    background-color: #34495e;
+    color: #ecf0f1;
+    border-radius: 20px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+    width: 100%;
+    max-width: 420px;
+    height: 100%;
+    max-height: 850px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding: 25px;
+    text-align: center;
+}
+.collection-header {
+    text-align: center;
+    border-bottom: 1px solid #4a627a;
+    padding-bottom: 20px;
+}
+.collection-header h1 {
+    color: #ecf0f1;
+    font-size: 1.8em;
+    letter-spacing: 2px;
+}
+.collection-header p {
+    font-size: 1.2em;
+    color: #95a5a6;
+}
+.progress-bar-container {
+    width: 100%;
+    background-color: #2c3e50;
+    border-radius: 10px;
+    margin-top: 15px;
+    overflow: hidden;
+}
+.progress-bar {
+    width: 0%;
+    height: 15px;
+    background-image: linear-gradient(45deg, #1abc9c, #16a085);
+    border-radius: 10px;
+    transition: width 0.5s ease-in-out;
+}
+
+.collection-grid {
+    flex-grow: 1;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    padding: 20px 0;
+    overflow-y: auto;
+    justify-items: center;
+}
+
+.collection-item {
+    background-color: #2c3e50;
+    border: 2px solid #4a627a;
+    border-radius: 15px;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+.collection-item.collected {
+    background-color: #1abc9c;
+    border-color: #16a085;
+    transform: scale(1.05);
+}
+
+.collection-item .item-image {
+    width: 60%;
+    height: 60%;
+    object-fit: contain;
+    filter: brightness(0) invert(0.8);
+}
+.collection-item.collected .item-image {
+    filter: none;
+}
+.collection-item .item-placeholder {
+    font-size: 2.5em;
+    color: #4a627a;
+}
+.collection-item .item-name {
+    font-size: 0.8em;
+    color: #95a5a6;
+    margin-top: 5px;
+}
+.collection-item.collected .item-name {
+    color: white;
+    font-weight: bold;
+}
+
+.collection-container footer {
+    text-align: center;
+    padding-top: 15px;
+    border-top: 1px solid #4a627a;
+}
+.collection-container .nav-link {
+    color: #1abc9c;
+    font-size: 1.2em;
+    text-decoration: none;
+}
+
+/* --- アイテム拡大表示モーダル --- */
+.item-modal {
+    display: none; /* 初期状態では非表示 */
+    position: fixed; /* 画面に固定 */
+    z-index: 1000; /* 他の要素より前面に */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* 必要に応じてスクロール可能に */
+    background-color: rgba(0,0,0,0.8); /* 半透明の黒い背景 */
+    justify-content: center;
+    align-items: center;
+    animation: fadeInModal 0.3s ease-out;
+}
+
+.item-modal.active {
+    display: flex; /* 表示時にflexboxで中央寄せ */
+}
+
+.item-modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 90%;
+    max-height: 90%;
+    animation: zoomIn 0.3s ease-out;
+}
+
+.modal-item-image {
+    max-width: 100%;
+    max-height: 70vh; /* 画面の高さの70%を最大に */
+    object-fit: contain;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.modal-item-name {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+}
+
+.close-button {
+    color: #aaa;
+    position: absolute;
+    top: 10px;
+    right: 25px;
+    font-size: 35px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: #333;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+@keyframes fadeInModal {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes zoomIn {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
