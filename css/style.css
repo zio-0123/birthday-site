@@ -175,6 +175,43 @@ main {
     border-top: 3px dashed rgba(255, 255, 255, 0.8);
 }
 
+/* ネオンテキストスタイル */
+.neon-text {
+    color: #81d4fa; /* 明るい水色 */
+    text-shadow:
+        0 0 5px #81d4fa,
+        0 0 10px #81d4fa,
+        0 0 20px #81d4fa,
+        0 0 40px #039be5, /* 少し濃い水色 */
+        0 0 80px #039be5,
+        0 0 90px #039be5,
+        0 0 100px #039be5;
+    animation: neon-glow 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes neon-glow {
+    from {
+        text-shadow:
+            0 0 5px #81d4fa,
+            0 0 10px #81d4fa,
+            0 0 20px #81d4fa,
+            0 0 40px #039be5,
+            0 0 80px #039be5,
+            0 0 90px #039be5,
+            0 0 100px #039be5;
+    }
+    to {
+        text-shadow:
+            0 0 2px #81d4fa,
+            0 0 5px #81d4fa,
+            0 0 10px #81d4fa,
+            0 0 20px #039be5,
+            0 0 30px #039be5,
+            0 0 40px #039be5,
+            0 0 50px #039be5;
+    }
+}
+
 /* --- アイテムカード --- */
 .item-card-container {
     position: absolute;

@@ -12,6 +12,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const timeDiff = birthday.getTime() - today.getTime();
     const daysLeft = Math.ceil(timeDiff / (1000 * 3600 * 24));
 
+    const mainTitleElement = document.getElementById('main-title'); // 追加
+    if (mainTitleElement) { // 追加
+        if (daysLeft <= 0) { // 追加
+            mainTitleElement.textContent = 'Happy Birthday!'; // 追加
+        } else { // 追加
+            mainTitleElement.textContent = 'Happy Event'; // 追加
+        } // 追加
+    } // 追加
+
     const daysElement = document.getElementById('days');
     if (daysElement) {
         daysElement.textContent = daysLeft > 0 ? daysLeft : 0;
