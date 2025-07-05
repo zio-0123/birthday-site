@@ -239,6 +239,24 @@ main {
     margin: 0 10px;
     color: #e91e63;
     text-decoration: none;
+    font-size: 1.2em; /* アイコンのサイズ調整 */
+}
+
+.nav-link i {
+    pointer-events: none; /* アイコン自体がクリックイベントを妨げないように */
+}
+
+/* リセットボタンのスタイル調整 */
+.icon-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #e91e63;
+    font-size: 1.2em; /* アイコンのサイズ調整 */
+    padding: 0; /* 余分なパディングを削除 */
+}
+.icon-button:hover {
+    color: #c2185b; /* ホバー時の色変更 */
 }
 
 /* --- アニメーション & 紙吹雪 --- */
