@@ -177,7 +177,7 @@ main {
 
 /* ネオンテキストスタイル */
 .neon-text {
-    color: #81d4fa; /* 明るい水色 */
+    color: #FFFFFF; /* 文字色を白色に変更 */
     text-shadow:
         0 0 5px #81d4fa,
         0 0 10px #81d4fa,
