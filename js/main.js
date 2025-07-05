@@ -16,4 +16,11 @@ document.addEventListener('DOMContentLoaded', () => {
             window.location.href = 'gacha.html';
         });
     }
+
+    // 現在の日付を表示
+    const currentDateElement = document.getElementById('current-date');
+    if (currentDateElement) {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        currentDateElement.textContent = today.toLocaleDateString('ja-JP', options);
+    }
 });
