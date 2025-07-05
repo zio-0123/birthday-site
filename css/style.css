@@ -12,7 +12,7 @@ body {
 
 /* --- トップ画面専用スタイル --- */
 body.intro-page {
-    background: linear-gradient(to bottom right, #ffdde1, #ee9ca7); /* 暖色系のグラデーション */
+    background: linear-gradient(to bottom right, #e0f2f7, #b3e5fc); /* 水色系のグラデーション */
 }
 .intro-container {
     background-color: rgba(255, 255, 255, 0.95); /* 半透明の白 */
@@ -33,7 +33,7 @@ body.intro-page {
 }
 
 .intro-header h1 {
-    color: #e91e63;
+    color: #0288d1; /* 濃い水色 */
     font-size: 2.8em;
     margin-bottom: 10px;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
@@ -49,7 +49,7 @@ body.intro-page {
 
 .countdown {
     font-size: 1.8em;
-    color: #c2185b;
+    color: #039be5; /* 中間の水色 */
     margin-bottom: 30px;
 }
 .countdown p {
@@ -58,13 +58,13 @@ body.intro-page {
 .days-left {
     font-size: 4em;
     font-weight: bold;
-    color: #e91e63;
+    color: #0288d1; /* 濃い水色 */
     text-shadow: 3px 3px 6px rgba(0,0,0,0.15);
     animation: pulse 1.5s infinite alternate;
 }
 
 .intro-button {
-    background-image: linear-gradient(45deg, #ff6b6b, #ffa07a); /* 鮮やかなグラデーション */
+    background-image: linear-gradient(45deg, #4fc3f7, #81d4fa); /* 水色系のグラデーション */
     color: white;
     border: none;
     padding: 20px 50px;
@@ -73,11 +73,11 @@ body.intro-page {
     border-radius: 50px;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 8px 20px rgba(255,107,107,0.4);
+    box-shadow: 0 8px 20px rgba(79,195,247,0.4); /* 水色系のシャドウ */
 }
 .intro-button:hover {
     transform: translateY(-3px);
-    box-shadow: 0 12px 25px rgba(255,107,107,0.5);
+    box-shadow: 0 12px 25px rgba(79,195,247,0.5); /* 水色系のシャドウ */
 }
 
 .intro-footer p {
@@ -146,7 +146,7 @@ main {
 .pack-part {
     position: absolute;
     width: 100%;
-    background-image: linear-gradient(45deg, #ff7e5f, #feb47b);
+    background-image: linear-gradient(45deg, #4fc3f7, #81d4fa); /* 水色系のグラデーション */
     box-shadow: 0 5px 20px rgba(0,0,0,0.2);
     transition: transform 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55);
     display: flex;
@@ -202,7 +202,7 @@ main {
     top: 10px;
     right: 10px;
     color: white;
-    background-color: #e91e63;
+    background-color: #0288d1; /* 濃い水色 */
     padding: 3px 8px;
     border-radius: 5px;
     font-weight: bold;
@@ -212,7 +212,7 @@ main {
 
 /* --- ボタン・リンク --- */
 #pull-gacha-button {
-    background-image: linear-gradient(45deg, #e91e63, #c2185b);
+    background-image: linear-gradient(45deg, #0288d1, #039be5); /* 水色系のグラデーション */
     color: white;
     border: none;
     padding: 18px 40px;
@@ -221,7 +221,7 @@ main {
     border-radius: 50px;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(233, 30, 99, 0.4);
+    box-shadow: 0 4px 15px rgba(2,136,209,0.4); /* 水色系のシャドウ */
 }
 #pull-gacha-button:disabled {
     background-image: none;
@@ -231,13 +231,13 @@ main {
 }
 #pull-gacha-button:not(:disabled):hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(233, 30, 99, 0.5);
+    box-shadow: 0 6px 20px rgba(2,136,209,0.5); /* 水色系のシャドウ */
 }
 
 .nav-link {
     display: inline-block;
     margin: 0 10px;
-    color: #e91e63;
+    color: #0288d1; /* 濃い水色 */
     text-decoration: none;
     font-size: 1.2em; /* アイコンのサイズ調整 */
 }
@@ -251,12 +251,12 @@ main {
     background: none;
     border: none;
     cursor: pointer;
-    color: #e91e63;
+    color: #0288d1; /* 濃い水色 */
     font-size: 1.2em; /* アイコンのサイズ調整 */
     padding: 0; /* 余分なパディングを削除 */
 }
 .icon-button:hover {
-    color: #c2185b; /* ホバー時の色変更 */
+    color: #039be5; /* ホバー時の色変更 */
 }
 
 /* --- アニメーション & 紙吹雪 --- */
@@ -276,7 +276,7 @@ main {
 .confetti {
     width: 10px;
     height: 10px;
-    background-color: #f00;
+    background-color: #039be5; /* 水色 */
     position: absolute;
     top: -20px;
     animation: fall linear infinite;
