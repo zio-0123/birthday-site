@@ -1,30 +1,36 @@
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('main.js loaded and DOMContentLoaded fired'); // 追加
-    // 試験テスト用: 誕生日までの残り日数を設定
-    // 例: 今日から10日後を誕生日に設定する場合
-    const testDaysUntilBirthday = 10; // ここを変更してテストしたい日数を設定
-    const birthday = new Date();
-    birthday.setDate(birthday.getDate() + testDaysUntilBirthday);
-    birthday.setHours(0, 0, 0, 0); // 日付のみを比較するため、時刻をリセット
-    // 本番環境に戻す場合は、上記の3行をコメントアウトし、以下の行を有効にしてください
-    // const birthday = new Date('2024-10-19T00:00:00');
+    console.log('main.js loaded and DOMContentLoaded fired');
+
+    const birthday = new Date('2024-10-19T00:00:00');
     const today = new Date();
+    today.setHours(0, 0, 0, 0); // 時刻をリセットして日付のみで比較
+
     const timeDiff = birthday.getTime() - today.getTime();
     const daysLeft = Math.ceil(timeDiff / (1000 * 3600 * 24));
 
-    const mainTitleElement = document.getElementById('main-title'); // 追加
-    if (mainTitleElement) { // 追加
-        if (daysLeft <= 0) { // 追加
-            mainTitleElement.textContent = 'Happy Birthday!'; // 追加
-        } else { // 追加
-            mainTitleElement.textContent = 'Happy Event'; // 追加
-        } // 追加
-    } // 追加
+    const mainTitleElement = document.getElementById('main-title');
+    if (mainTitleElement) {
+        if (daysLeft <= 0) {
+            mainTitleElement.textContent = 'Happy Birthday!';
+        } else {
+            mainTitleElement.textContent = 'Happy Event';
+        }
+    }
 
     const daysElement = document.getElementById('days');
     if (daysElement) {
         daysElement.textContent = daysLeft > 0 ? daysLeft : 0;
     }
+
+    // ガチャ回数のリセット処理
+    const lastVisit = localStorage.getItem('lastVisit');
+    const todayStr = today.toDateString(); // YYYY-MM-DD形式
+
+    if (lastVisit !== todayStr) {
+        localStorage.setItem('gachaCount', 3);
+        localStorage.setItem('lastVisit', todayStr);
+    }
+
 
     const gachaButton = document.getElementById('gacha-button');
     if (gachaButton) {
@@ -37,6 +43,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const currentDateElement = document.getElementById('current-date');
     if (currentDateElement) {
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
-        currentDateElement.textContent = today.toLocaleDateString('ja-JP', options);
+        currentDateElement.textContent = new Date().toLocaleDateString('ja-JP', options);
     }
 });

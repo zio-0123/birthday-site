@@ -6,8 +6,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const imageFileExtension = '.jpg';
 
     // --- 状態管理 ---
-    const gachaState = JSON.parse(localStorage.getItem('gachaState_' + birthday)) || { lastPulledDate: '', pullsToday: 0, collectedItems: [] };
-    const today = new Date().toISOString().split('T')[0];
+    let gachaCount = localStorage.getItem('gachaCount') ? parseInt(localStorage.getItem('gachaCount')) : 0;
+    const collectedItems = JSON.parse(localStorage.getItem('collectedItems_' + birthday)) || [];
 
     // --- DOM要素 ---
     const gachaResultElement = document.getElementById('gacha-result');
@@ -15,46 +15,42 @@ document.addEventListener('DOMContentLoaded', () => {
     const pullsLeftElement = document.getElementById('pulls-left');
     const birthdayChanceElement = document.getElementById('birthday-chance');
     const pullChanceButton = document.getElementById('pull-chance-button');
-    const resetButton = document.getElementById('reset-button'); // ここで宣言
+    const resetButton = document.getElementById('reset-button');
 
     let currentItem = null;
-    let packIsOpening = false; // パック開封アニメーション中かどうか
+    let packIsOpening = false;
 
     // --- 関数 ---
-    const saveState = () => localStorage.setItem('gachaState_' + birthday, JSON.stringify(gachaState));
+    const saveCollectedItems = () => localStorage.setItem('collectedItems_' + birthday, JSON.stringify(collectedItems));
     const createConfetti = () => { /* ... 変更なし ... */ };
 
     function updatePullsLeft() {
-        if (gachaState.lastPulledDate !== today) {
-            gachaState.pullsToday = 0;
-            gachaState.lastPulledDate = today;
-        }
-        const pullsLeft = 3 - gachaState.pullsToday;
-        pullsLeftElement.textContent = pullsLeft > 0 ? pullsLeft : 0;
-
-        pullGachaButton.disabled = packIsOpening || pullsLeft <= 0;
-        if (pullsLeft <= 0) {
+        pullsLeftElement.textContent = gachaCount > 0 ? gachaCount : 0;
+        pullGachaButton.disabled = packIsOpening || gachaCount <= 0;
+        if (gachaCount <= 0) {
             pullGachaButton.textContent = 'また明日！';
         } else if (!packIsOpening) {
             pullGachaButton.textContent = 'パックを引く';
         }
 
-        if (today === birthday && gachaState.pullsToday >= 3) {
-            const collectedNormalCount = gachaState.collectedItems.filter(item => normalItems.includes(item)).length;
-            if (collectedNormalCount >= 12 && gachaState.collectedItems.length < (normalItems.length + specialItems.length)) {
+        const today = new Date().toISOString().split('T')[0];
+        if (today === birthday && gachaCount <= 0) {
+            const collectedNormalCount = collectedItems.filter(item => normalItems.includes(item)).length;
+            if (collectedNormalCount >= 12 && collectedItems.length < (normalItems.length + specialItems.length)) {
                 birthdayChanceElement.style.display = 'block';
             }
         }
     }
 
     function finalizeGacha() {
-        const isNew = !gachaState.collectedItems.includes(currentItem);
+        const isNew = !collectedItems.includes(currentItem);
         if (isNew) {
-            gachaState.collectedItems.push(currentItem);
+            collectedItems.push(currentItem);
+            saveCollectedItems();
             setTimeout(createConfetti, 500);
         }
-        gachaState.pullsToday++;
-        saveState();
+        gachaCount--;
+        localStorage.setItem('gachaCount', gachaCount);
         updatePullsLeft();
 
         pullGachaButton.disabled = false;
@@ -64,19 +60,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function showCard() {
         console.log('showCard called');
-        const isNew = !gachaState.collectedItems.includes(currentItem);
+        const isNew = !collectedItems.includes(currentItem);
         const imagePath = `img/${currentItem}${imageFileExtension}`;
         
-        // item-card-container を作成
         const cardContainer = document.createElement('div');
         cardContainer.classList.add('item-card-container');
 
-        // img 要素を作成
         const imgElement = document.createElement('img');
         imgElement.src = imagePath;
         imgElement.alt = currentItem;
         imgElement.classList.add('item-image');
-        // onerror ハンドラを直接設定
         imgElement.onerror = function() {
             this.onerror = null;
             this.src = '';
@@ -85,7 +78,6 @@ document.addEventListener('DOMContentLoaded', () => {
         };
         cardContainer.appendChild(imgElement);
 
-        // NEW! テキストを追加
         if (isNew) {
             const newText = document.createElement('p');
             newText.classList.add('new-item-text');
@@ -93,14 +85,12 @@ document.addEventListener('DOMContentLoaded', () => {
             cardContainer.appendChild(newText);
         }
 
-        // gachaResultElement の中身をクリアして新しいカードを追加
-        gachaResultElement.innerHTML = ''; // 既存の内容をクリア
+        gachaResultElement.innerHTML = '';
         gachaResultElement.appendChild(cardContainer);
 
-        console.log('Image Path:', imagePath); // ログは残す
-        console.log('gachaResultElement innerHTML after assignment (programmatic):', gachaResultElement.innerHTML); // ログは残す
+        console.log('Image Path:', imagePath);
+        console.log('gachaResultElement innerHTML after assignment (programmatic):', gachaResultElement.innerHTML);
 
-        // 強制リフローとvisibleクラスの追加
         void cardContainer.offsetWidth; 
         cardContainer.classList.add('visible');
         
@@ -108,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function openPack() {
-        console.log('openPack called'); // 追加
+        console.log('openPack called');
         const packTop = document.querySelector('.pack-top');
         const packBottom = document.querySelector('.pack-bottom');
         if (packTop && packBottom) {
@@ -172,25 +162,24 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     pullGachaButton.addEventListener('click', () => {
-        if (!packIsOpening && (3 - gachaState.pullsToday) > 0) {
+        if (!packIsOpening && gachaCount > 0) {
             showPack(normalItems);
         }
     });
 
-    // --- リセットボタン --- 
-    if(resetButton) { // ここは宣言ではなく、要素が存在するかどうかのチェック
+    if(resetButton) {
         resetButton.addEventListener('click', () => {
             if (confirm('本当に進行状況をリセットしますか？集めたアイテムがすべてなくなります。')) {
-                localStorage.removeItem('gachaState_' + birthday);
+                localStorage.removeItem('collectedItems_' + birthday);
+                localStorage.setItem('gachaCount', 3); // Reset gacha count as well
                 location.reload();
             }
         });
     }
 
-    // --- 誕生日チャンスボタン --- 
     pullChanceButton.addEventListener('click', () => {
         if (!packIsOpening) {
-            const remainingSpecials = specialItems.filter(item => !gachaState.collectedItems.includes(item));
+            const remainingSpecials = specialItems.filter(item => !collectedItems.includes(item));
             if (remainingSpecials.length > 0) {
                 currentItem = remainingSpecials[0];
                 showPack(remainingSpecials);
@@ -201,6 +190,5 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // --- 初期化 ---
     updatePullsLeft();
 });
