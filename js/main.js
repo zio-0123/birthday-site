@@ -1,9 +1,15 @@
 document.addEventListener('DOMContentLoaded', () => {
     console.log('main.js loaded and DOMContentLoaded fired');
 
-    const birthday = new Date('2024-07-18T00:00:00');
     const today = new Date();
-    today.setHours(0, 0, 0, 0); // 時刻をリセットして日付のみで比較
+    today.setHours(0, 0, 0, 0);
+
+    let birthday = new Date(today.getFullYear(), 6, 18); //月は0から始まるため、7月は6
+
+    // 今年の誕生日がすでに過ぎていたら、来年の誕生日に設定
+    if (today.getTime() > birthday.getTime()) {
+        birthday.setFullYear(birthday.getFullYear() + 1);
+    }
 
     const timeDiff = birthday.getTime() - today.getTime();
     const daysLeft = Math.ceil(timeDiff / (1000 * 3600 * 24));

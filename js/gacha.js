@@ -1,6 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- 設定 ---
-    const birthday = '2024-07-18';
+    const today = new Date();
+    let birthdayDate = new Date(today.getFullYear(), 6, 18); // 7月18日
+    if (today.getTime() > birthdayDate.getTime()) {
+        birthdayDate.setFullYear(birthdayDate.getFullYear() + 1);
+    }
+    const birthday = birthdayDate.toISOString().split('T')[0];
     const normalItems = ['haburashi', 'gameki', 'kasa', 'nuigurumi', 'koppu', 't_shirt', 'zubon', 'boushi', 'okikagami', 'dryer', 'cd', 'dvd', 'kuchibeni', 'cola', 'snack_kashi'];
     const specialItems = ['hairbrush', 'sneaker', 'ude_dokei'];
     const imageFileExtension = '.jpg';
