@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    let birthday = new Date(today.getFullYear(), 6, 18); //月は0から始まるため、7月は6
+    let birthday = new Date(today.getFullYear(), 6, 20); //月は0から始まるため、7月は6
 
     // 今年の誕生日がすでに過ぎていたら、来年の誕生日に設定
     if (today.getTime() > birthday.getTime()) {

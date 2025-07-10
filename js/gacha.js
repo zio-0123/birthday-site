@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- 設定 ---
     const today = new Date();
-    let birthdayDate = new Date(today.getFullYear(), 6, 18); // 7月18日
+    let birthdayDate = new Date(today.getFullYear(), 6, 20); // 7月20日
     if (today.getTime() > birthdayDate.getTime()) {
         birthdayDate.setFullYear(birthdayDate.getFullYear() + 1);
     }
