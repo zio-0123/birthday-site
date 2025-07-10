@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     console.log('main.js loaded and DOMContentLoaded fired');
 
-    const birthday = new Date('2024-10-19T00:00:00');
+    const birthday = new Date('2024-07-18T00:00:00');
     const today = new Date();
     today.setHours(0, 0, 0, 0); // 時刻をリセットして日付のみで比較
 

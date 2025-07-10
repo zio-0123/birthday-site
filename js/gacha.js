@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- 設定 ---
-    const birthday = '2024-10-19';
+    const birthday = '2024-07-18';
     const normalItems = ['haburashi', 'gameki', 'kasa', 'nuigurumi', 'koppu', 't_shirt', 'zubon', 'boushi', 'okikagami', 'dryer', 'cd', 'dvd', 'kuchibeni', 'cola', 'snack_kashi'];
     const specialItems = ['hairbrush', 'sneaker', 'ude_dokei'];
     const imageFileExtension = '.jpg';
